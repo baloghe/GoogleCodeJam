@@ -7,7 +7,7 @@ import util.CaseSolver;
 import util.RawInput;
 import util.Util;
 
-public class Jamcoin {
+public class JamCoin {
 
 	public static String INPUT_DIRECTORY;
 	public static String INPUT_FILENAME_SMALL = "C-small-practice.in";
@@ -30,19 +30,22 @@ public class Jamcoin {
 		rawLinesNum = 1;
 		
 		//Small or Large to be processed?
-		int runmode = RUNMODE_SMALL;
-		//int runmode = RUNMODE_LARGE;
+		//int runmode = RUNMODE_SMALL;
+		int runmode = RUNMODE_LARGE;
 				
 		//init the whole thing
 		init(runmode);
 		
 		//init solver
-		solver = new JamCoinSolver();
+		solver = new JamCoinSolver(runmode);
 		
 		//solve...
 		ArrayList<String> solution = new ArrayList<String>();
+		int cnt = 0;
 		for(RawInput r : rawInputs){
 			solution.add(solver.solveCase(r));
+			cnt++;
+			if(cnt % 10 == 0) System.out.println("JamCoin :: # of cases solved=" + cnt);
 		}
 		
 		//print last solution
@@ -68,7 +71,7 @@ public class Jamcoin {
 		if(username.equalsIgnoreCase("baloghend")){
 			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQuali2016"; //at work
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/RoundQuali2016";   //at home
+			INPUT_DIRECTORY = "../../../kaggle/DTA/data/drivers";   //at home
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);
@@ -84,6 +87,7 @@ public class Jamcoin {
 		System.out.println("Last raw input: " + rawInputs.get(rawInputs.size()-1));
 		
 	}
+	
 	
 	
 }
