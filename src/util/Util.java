@@ -119,6 +119,60 @@ public class Util {
 	}
 	
 	/**
+	 * splits the given string into a String array. The splitting is executed by a java.util.Scanner object
+	 * @param inStr string to be split up
+	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
+	 * @return null if the input was null, array of Strings otherwise
+	 */
+	public static ArrayList<String> splitStringToString(String inStr, String inDelim){
+		
+		if(inStr==null || inStr.equalsIgnoreCase(""))
+			return null;
+		
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		Scanner sc = new Scanner(inStr);
+		
+		if(inDelim != null){
+			sc.useDelimiter(inDelim);
+		}
+		
+		while (sc.hasNext()){
+			ret.add( sc.next() );
+		}
+		sc.close();
+		
+		return ret;
+	}
+	
+	/**
+	 * splits the given string into a String array. The splitting is executed by a java.util.Scanner object
+	 * @param inStr string to be split up
+	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
+	 * @return null if the input was null, array of Strings otherwise
+	 */
+	public static ArrayList<Character> splitStringToCharacter(String inStr, String inDelim){
+		
+		if(inStr==null || inStr.equalsIgnoreCase(""))
+			return null;
+		
+		ArrayList<Character> ret = new ArrayList<Character>();
+		
+		Scanner sc = new Scanner(inStr);
+		
+		if(inDelim != null){
+			sc.useDelimiter(inDelim);
+		}
+		
+		while (sc.hasNext()){
+			ret.add( sc.next().toCharArray()[0] );
+		}
+		sc.close();
+		
+		return ret;
+	}
+	
+	/**
 	 * creates an empty file (or a file with the given header) in the target directory (and closes it immediately). File with the same name will be overwritten
 	 * @param targetFileName name of the file to be created
 	 * @param header header to be written out into the file. In case of NULL no header will be written to the file
@@ -213,11 +267,22 @@ public class Util {
 	    //check if n is a multiple of 2
 	    if (n%2==0) return false;
 	    //if not, then just check the odds
-	    for(int i=3;i*i<=n;i+=2) {
+	    for(long i=3;i*i<=n;i+=2) {
 	        if(n%i==0)
 	            return false;
 	    }
 	    return true;
+	}
+	
+	public static long getSmallestDivisor(long n){
+		//check if n is a multiple of 2
+	    if (n%2==0) return 2;
+	    //if not, then just check the odds
+	    for(long i=3;i*i<=n;i+=2) {
+	        if(n%i==0)
+	            return i;
+	    }
+	    return 1;
 	}
 	
 	/**
@@ -266,4 +331,126 @@ public class Util {
 		return ret;
 	}
 	
+		
+	public static HashSet<Integer> intPrimeSieveThreshold(int inThreshold) {
+		//the result will contain 2 however the calculation entirely omits even numbers
+				int[] primes = new int[Integer.MAX_VALUE-1];
+				primes[0] = 3;
+				primes[1] = 5;
+				primes[2] = 7;
+				int index = 3;
+
+				//calc sieve
+				for (int n = 11; index < Integer.MAX_VALUE-1 && n < inThreshold; n += 2) {
+					boolean prime = true;
+					for (int j : primes) {
+						int top = j * j;
+						if (n >= top) {
+							// System.out.println("j(prime): " + j + "; i(test): " + n + "; Top: " + top);
+							if ((j != 0) && (n % j == 0)) {
+								prime = false;
+								break;
+							}
+						} else {
+							break;
+						}
+					}//next
+					if (prime) {
+						//System.out.println(n);
+						primes[index++] = n;
+					}
+				}
+				
+				//convert to HashSet<Integer>
+				HashSet<Integer> ret = new HashSet<Integer>();
+				//2 is not present above, so add it
+				//but stop at the first 0!
+				ret.add( new Integer(2) );
+				for(int i : primes){
+					if(i > 0)
+						ret.add( new Integer(i) );
+					else break;
+				}
+				
+				//return
+				return ret;
+	}
+	
+	public static HashSet<Long> longPrimeSieveThreshold(long inThreshold) {
+		//the result will contain 2 however the calculation entirely omits even numbers
+				int primArrSize=1000000;
+				long[] primes = new long[primArrSize];
+				primes[0] = 3;
+				primes[1] = 5;
+				primes[2] = 7;
+				int index = 3;
+
+				//calc sieve
+				for (long n = 11; index < primArrSize-1 && n < inThreshold; n += 2) {
+					boolean prime = true;
+					for (long j : primes) {
+						long top = j * j;
+						if (n >= top) {
+							// System.out.println("j(prime): " + j + "; i(test): " + n + "; Top: " + top);
+							if ((j != 0) && (n % j == 0)) {
+								prime = false;
+								break;
+							}
+						} else {
+							break;
+						}
+					}//next
+					if (prime) {
+						//System.out.println(n);
+						primes[index++] = n;
+					}
+				}
+				
+				//convert to HashSet<Integer>
+				HashSet<Long> ret = new HashSet<Long>();
+				//2 is not present above, so add it
+				//but stop at the first 0!
+				ret.add( new Long(2) );
+				for(long i : primes){
+					if(i > 0)
+						ret.add( new Long(i) );
+					else break;
+				}
+				
+				//return
+				return ret;
+	}
+	
+	/*
+	public static int getValueInBase(String inValue, int inBase){
+		return Integer.parseInt(inValue, inBase);
+	}
+	*/
+	/*
+	public static String getStringInBase(int inValue, int inBase){
+		return java.lang.Integer.toString(inValue, inBase);
+	}
+	*/
+	
+	public static String longArrayToString(long[] inArr, String sep){
+		if(inArr == null) return "NULL";
+		if(inArr.length == 0) return "EMPTY";
+		//otherwise...
+		String ret = "" + inArr[0];
+		for(int i=2; i<inArr.length; i++){
+			ret += (sep + inArr[i]);
+		}
+		return ret;
+	}
+	
+	public static String intArrayToString(int[] inArr, String sep){
+		if(inArr == null) return "NULL";
+		if(inArr.length == 0) return "EMPTY";
+		//otherwise...
+		String ret = "" + inArr[0];
+		for(int i=2; i<inArr.length; i++){
+			ret += (sep + inArr[i]);
+		}
+		return ret;
+	}
 }

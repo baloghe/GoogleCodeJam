@@ -1,4 +1,4 @@
-package rq2016;
+package r1a2016;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,8 @@ import util.CaseSolver;
 import util.RawInput;
 import util.Util;
 
-public class CountingSheep {
+
+public class ProblemASolution {
 
 	public static String INPUT_DIRECTORY;
 	public static String INPUT_FILENAME_SMALL = "A-small-practice.in";
@@ -30,14 +31,14 @@ public class CountingSheep {
 		rawLinesNum = 1;
 		
 		//Small or Large to be processed?
-		int runmode = RUNMODE_SMALL;
-		//int runmode = RUNMODE_LARGE;
+		//int runmode = RUNMODE_SMALL;
+		int runmode = RUNMODE_LARGE;
 				
 		//init the whole thing
 		init(runmode);
 		
 		//init solver
-		solver = new CountingSheepSolver();
+		solver = new ProblemASolver(runmode);
 		
 		//solve...
 		ArrayList<String> solution = new ArrayList<String>();
@@ -66,9 +67,9 @@ public class CountingSheep {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQuali2016"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1A2016"; //at work
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/RoundQuali2016";   //at home
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1A2016";   //at home
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);

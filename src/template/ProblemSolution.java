@@ -1,4 +1,4 @@
-package rq2016;
+package template;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,15 +7,45 @@ import util.CaseSolver;
 import util.RawInput;
 import util.Util;
 
-public class CountingSheep {
+/**
+ * Boilerplate for Google Code Jam problems: 
+ * 	reads the input file,
+ * 	processes it case-by-case with a new ProblemSolver instance for each case, 
+ * 	writes the solutions to the submission file
+ *
+ */
+public class ProblemSolution {
 
+	/**
+	 * input directory relative to the project repo directory, dependent on actual username
+	 */
 	public static String INPUT_DIRECTORY;
+	
+	/**
+	 * Input file name for Small problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
 	public static String INPUT_FILENAME_SMALL = "A-small-practice.in";
+	
+	/**
+	 * Input file name for Large problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
 	public static String INPUT_FILENAME_LARGE = "A-large-practice.in";
 	
+	/**
+	 * Small input mode
+	 */
 	public static int RUNMODE_SMALL = 0;
+	
+	/**
+	 * Large input mode
+	 */
 	public static int RUNMODE_LARGE = 1;
 	
+	/**
+	 * Submission file
+	 */
 	public static File SUBMISSION_FILE;
 	
 	private static long startTime;
@@ -37,7 +67,7 @@ public class CountingSheep {
 		init(runmode);
 		
 		//init solver
-		solver = new CountingSheepSolver();
+		solver = new ProblemSolver(runmode);
 		
 		//solve...
 		ArrayList<String> solution = new ArrayList<String>();
@@ -58,6 +88,10 @@ public class CountingSheep {
 		System.out.println("Main :: duration = " + duration + " min"); 
 	}
 	
+	/**
+	 * initializer, called by main(). Parameter made explicit for JUnit testing reasons
+	 * @param inRunMode smapp or large problem
+	 */
 	public static void init(int inRunMode){
 		//start clock
 		startTime = System.currentTimeMillis();
@@ -66,9 +100,9 @@ public class CountingSheep {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQuali2016"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1A2016"; //at work
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/RoundQuali2016";   //at home
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1A2016";   //at home
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);
