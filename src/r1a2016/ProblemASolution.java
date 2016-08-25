@@ -1,4 +1,4 @@
-package rq2016;
+package r1a2016;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,11 +7,12 @@ import util.CaseSolver;
 import util.RawInput;
 import util.Util;
 
-public class JamCoin {
+
+public class ProblemASolution {
 
 	public static String INPUT_DIRECTORY;
-	public static String INPUT_FILENAME_SMALL = "C-small-practice.in";
-	public static String INPUT_FILENAME_LARGE = "C-large-practice.in";
+	public static String INPUT_FILENAME_SMALL = "A-small-practice.in";
+	public static String INPUT_FILENAME_LARGE = "A-large-practice.in";
 	
 	public static int RUNMODE_SMALL = 0;
 	public static int RUNMODE_LARGE = 1;
@@ -37,15 +38,12 @@ public class JamCoin {
 		init(runmode);
 		
 		//init solver
-		solver = new JamCoinSolver(runmode);
+		solver = new ProblemASolver(runmode);
 		
 		//solve...
 		ArrayList<String> solution = new ArrayList<String>();
-		int cnt = 0;
 		for(RawInput r : rawInputs){
 			solution.add(solver.solveCase(r));
-			cnt++;
-			if(cnt % 10 == 0) System.out.println("JamCoin :: # of cases solved=" + cnt);
 		}
 		
 		//print last solution
@@ -69,9 +67,9 @@ public class JamCoin {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQuali2016"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1A2016"; //at work
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/RoundQuali2016";   //at home
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1A2016";   //at home
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);
