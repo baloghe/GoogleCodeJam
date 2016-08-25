@@ -1,4 +1,4 @@
-package r1a2016;
+package r1a2016.c;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,16 +7,45 @@ import util.CaseSolver;
 import util.RawInput;
 import util.Util;
 
+/**
+ * Google Code Jam 2016 Round1A Problem B: 
+ * 	reads the input file,
+ * 	processes it case-by-case with a new ProblemSolver instance for each case, 
+ * 	writes the solutions to the submission file
+ *
+ */
+public class ProblemSolution {
 
-public class ProblemASolution {
-
+	/**
+	 * input directory relative to the project repo directory, dependent on actual username
+	 */
 	public static String INPUT_DIRECTORY;
-	public static String INPUT_FILENAME_SMALL = "A-small-practice.in";
-	public static String INPUT_FILENAME_LARGE = "A-large-practice.in";
 	
+	/**
+	 * Input file name for Small problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
+	public static String INPUT_FILENAME_SMALL = "C-small-practice.in";
+	
+	/**
+	 * Input file name for Large problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
+	public static String INPUT_FILENAME_LARGE = "C-large-practice.in";
+	
+	/**
+	 * Small input mode
+	 */
 	public static int RUNMODE_SMALL = 0;
+	
+	/**
+	 * Large input mode
+	 */
 	public static int RUNMODE_LARGE = 1;
 	
+	/**
+	 * Submission file
+	 */
 	public static File SUBMISSION_FILE;
 	
 	private static long startTime;
@@ -31,14 +60,14 @@ public class ProblemASolution {
 		rawLinesNum = 1;
 		
 		//Small or Large to be processed?
-		//int runmode = RUNMODE_SMALL;
-		int runmode = RUNMODE_LARGE;
+		int runmode = RUNMODE_SMALL;
+		//int runmode = RUNMODE_LARGE;
 				
 		//init the whole thing
 		init(runmode);
 		
 		//init solver
-		solver = new ProblemASolver(runmode);
+		solver = new ProblemSolver(runmode);
 		
 		//solve...
 		ArrayList<String> solution = new ArrayList<String>();
@@ -59,6 +88,10 @@ public class ProblemASolution {
 		System.out.println("Main :: duration = " + duration + " min"); 
 	}
 	
+	/**
+	 * initializer, called by main(). Parameter made explicit for JUnit testing reasons
+	 * @param inRunMode small or large problem
+	 */
 	public static void init(int inRunMode){
 		//start clock
 		startTime = System.currentTimeMillis();
@@ -89,3 +122,4 @@ public class ProblemASolution {
 	
 	
 }
+
