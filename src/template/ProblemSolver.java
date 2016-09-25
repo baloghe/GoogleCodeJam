@@ -24,9 +24,7 @@ public class ProblemSolver implements util.CaseSolver {
 	public String solveCase(RawInput inCase) {
 		init(inCase);
 		// TODO Auto-generated method stub
-		String ret = "";
-		
-		return ret;
+		return null;
 	}
 	
 	/**

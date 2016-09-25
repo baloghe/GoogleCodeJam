@@ -119,60 +119,6 @@ public class Util {
 	}
 	
 	/**
-	 * splits the given string into a String array. The splitting is executed by a java.util.Scanner object
-	 * @param inStr string to be split up
-	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
-	 * @return null if the input was null, array of Strings otherwise
-	 */
-	public static ArrayList<String> splitStringToString(String inStr, String inDelim){
-		
-		if(inStr==null || inStr.equalsIgnoreCase(""))
-			return null;
-		
-		ArrayList<String> ret = new ArrayList<String>();
-		
-		Scanner sc = new Scanner(inStr);
-		
-		if(inDelim != null){
-			sc.useDelimiter(inDelim);
-		}
-		
-		while (sc.hasNext()){
-			ret.add( sc.next() );
-		}
-		sc.close();
-		
-		return ret;
-	}
-	
-	/**
-	 * splits the given string into a String array. The splitting is executed by a java.util.Scanner object
-	 * @param inStr string to be split up
-	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
-	 * @return null if the input was null, array of Strings otherwise
-	 */
-	public static ArrayList<Character> splitStringToCharacter(String inStr, String inDelim){
-		
-		if(inStr==null || inStr.equalsIgnoreCase(""))
-			return null;
-		
-		ArrayList<Character> ret = new ArrayList<Character>();
-		
-		Scanner sc = new Scanner(inStr);
-		
-		if(inDelim != null){
-			sc.useDelimiter(inDelim);
-		}
-		
-		while (sc.hasNext()){
-			ret.add( sc.next().toCharArray()[0] );
-		}
-		sc.close();
-		
-		return ret;
-	}
-	
-	/**
 	 * creates an empty file (or a file with the given header) in the target directory (and closes it immediately). File with the same name will be overwritten
 	 * @param targetFileName name of the file to be created
 	 * @param header header to be written out into the file. In case of NULL no header will be written to the file
@@ -437,7 +383,7 @@ public class Util {
 		if(inArr.length == 0) return "EMPTY";
 		//otherwise...
 		String ret = "" + inArr[0];
-		for(int i=2; i<inArr.length; i++){
+		for(int i=1; i<inArr.length; i++){
 			ret += (sep + inArr[i]);
 		}
 		return ret;
@@ -448,8 +394,45 @@ public class Util {
 		if(inArr.length == 0) return "EMPTY";
 		//otherwise...
 		String ret = "" + inArr[0];
-		for(int i=2; i<inArr.length; i++){
+		for(int i=1; i<inArr.length; i++){
 			ret += (sep + inArr[i]);
+		}
+		return ret;
+	}
+	
+	public static String objArrayToString(Object[] inArr, String sep){
+		if(inArr == null) return "NULL";
+		if(inArr.length == 0) return "EMPTY";
+		//otherwise...
+		String ret = "" + inArr[0];
+		for(int i=1; i<inArr.length; i++){
+			ret += (sep + inArr[i]);
+		}
+		return ret;
+	}
+	
+	public static String objMatrixToString(Object[][] inMat, String sep){
+		if(inMat == null) return "NULL";
+		if(inMat.length == 0) return "EMPTY";
+		
+		String ret = Util.objArrayToString(inMat[0], sep);
+		
+		for(int r=1; r<inMat.length; r++){
+			ret += ("\n" + Util.objArrayToString(inMat[r], sep));
+		}
+		
+		return ret;
+	}
+	
+	public static String iterableToString(Iterable<?> it, String sep){
+		if(it == null) return "NULL";
+		String ret = "";
+		int cnt = 0;
+		for(Object elem : it){
+			if(cnt>0) 
+				ret += sep;
+			ret += (elem==null ? "NULL" : elem);
+			cnt++;
 		}
 		return ret;
 	}

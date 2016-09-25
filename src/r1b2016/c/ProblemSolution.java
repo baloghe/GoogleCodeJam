@@ -1,4 +1,4 @@
-package rq2016;
+package r1b2016.c;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,15 +7,45 @@ import util.CaseSolver;
 import util.RawInput;
 import util.Util;
 
-public class JamCoin {
+/**
+ * Google Code Jam 2016 Round1A Problem B: 
+ * 	reads the input file,
+ * 	processes it case-by-case with a new ProblemSolver instance for each case, 
+ * 	writes the solutions to the submission file
+ *
+ */
+public class ProblemSolution {
 
+	/**
+	 * input directory relative to the project repo directory, dependent on actual username
+	 */
 	public static String INPUT_DIRECTORY;
+	
+	/**
+	 * Input file name for Small problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
 	public static String INPUT_FILENAME_SMALL = "C-small-practice.in";
+	
+	/**
+	 * Input file name for Large problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
 	public static String INPUT_FILENAME_LARGE = "C-large-practice.in";
 	
+	/**
+	 * Small input mode
+	 */
 	public static int RUNMODE_SMALL = 0;
+	
+	/**
+	 * Large input mode
+	 */
 	public static int RUNMODE_LARGE = 1;
 	
+	/**
+	 * Submission file
+	 */
 	public static File SUBMISSION_FILE;
 	
 	private static long startTime;
@@ -37,15 +67,12 @@ public class JamCoin {
 		init(runmode);
 		
 		//init solver
-		solver = new JamCoinSolver(runmode);
+		solver = new ProblemSolver(runmode);
 		
 		//solve...
 		ArrayList<String> solution = new ArrayList<String>();
-		int cnt = 0;
 		for(RawInput r : rawInputs){
 			solution.add(solver.solveCase(r));
-			cnt++;
-			if(cnt % 10 == 0) System.out.println("JamCoin :: # of cases solved=" + cnt);
 		}
 		
 		//print last solution
@@ -61,6 +88,10 @@ public class JamCoin {
 		System.out.println("Main :: duration = " + duration + " min"); 
 	}
 	
+	/**
+	 * initializer, called by main(). Parameter made explicit for JUnit testing reasons
+	 * @param inRunMode small or large problem
+	 */
 	public static void init(int inRunMode){
 		//start clock
 		startTime = System.currentTimeMillis();
@@ -69,9 +100,11 @@ public class JamCoin {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQuali2016"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1B2016"; //at work
+		} else if(username.equalsIgnoreCase("user")){
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1B2016"; //at home/desktop
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1A2016";   //at home
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1B2016";   //at home/laptop
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);
@@ -81,7 +114,7 @@ public class JamCoin {
 		Util.readTestNumber(INPUT_DIRECTORY + "/" + infname );
 		
 		//read raw data
-		rawInputs = Util.readInputFile(INPUT_DIRECTORY + "/" + (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE) , rawLinesNum);
+		rawInputs = ProblemReader.readInputFile(INPUT_DIRECTORY + "/" + (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE) );
 		
 		//print last input
 		System.out.println("Last raw input: " + rawInputs.get(rawInputs.size()-1));

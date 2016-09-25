@@ -8,7 +8,7 @@ import util.RawInput;
 import util.Util;
 
 /**
- * Boilerplate for Google Code Jam problems: 
+ * Google Code Jam 2016 Round1A Problem B: 
  * 	reads the input file,
  * 	processes it case-by-case with a new ProblemSolver instance for each case, 
  * 	writes the solutions to the submission file
@@ -25,13 +25,13 @@ public class ProblemSolution {
 	 * Input file name for Small problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_SMALL = "A-small-practice.in";
+	public static String INPUT_FILENAME_SMALL = "B-small-practice.in";
 	
 	/**
 	 * Input file name for Large problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_LARGE = "A-large-practice.in";
+	public static String INPUT_FILENAME_LARGE = "B-large-practice.in";
 	
 	/**
 	 * Small input mode
@@ -90,7 +90,7 @@ public class ProblemSolution {
 	
 	/**
 	 * initializer, called by main(). Parameter made explicit for JUnit testing reasons
-	 * @param inRunMode smapp or large problem
+	 * @param inRunMode small or large problem
 	 */
 	public static void init(int inRunMode){
 		//start clock
@@ -100,9 +100,11 @@ public class ProblemSolution {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1A2016"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1B2016"; //at work
+		} else if(username.equalsIgnoreCase("user")){
+			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1B2016"; //at home/desktop
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1A2016";   //at home
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1B2016";   //at home/laptop
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);

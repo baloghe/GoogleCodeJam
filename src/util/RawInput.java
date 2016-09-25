@@ -14,10 +14,6 @@ public class RawInput {
 		return rawData;
 	}
 	
-	public String getData(int idx){
-		return rawData[idx];
-	}
-	
 	public static void setLinesNum(int inLinesNum){
 		RawInput.linesNum = inLinesNum;
 	}

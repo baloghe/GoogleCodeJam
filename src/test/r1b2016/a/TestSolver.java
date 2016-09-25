@@ -21,7 +21,7 @@ public class TestSolver {
 		RawInput raw = new RawInput(strs);
 		ProblemSolver solver = new ProblemSolver(ProblemSolution.RUNMODE_SMALL);
 		
-		System.out.println("t_Solver for r1b2016.b:");
+		System.out.println("t_Solver for r1b2016.a:");
 		System.out.println(solver.solveCase(raw));
 	}
 	
@@ -35,7 +35,7 @@ public class TestSolver {
 				,"ETHER"
 			};
 		
-		System.out.println("t_Solver for r1b2016.b:");
+		System.out.println("t_Solver for r1b2016.a:");
 		for(String s : strs){
 			RawInput raw = new RawInput( new String[]{s} );
 			ProblemSolver solver = new ProblemSolver(ProblemSolution.RUNMODE_SMALL);

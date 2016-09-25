@@ -68,7 +68,7 @@ public class CountingSheep {
 		if(username.equalsIgnoreCase("baloghend")){
 			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQuali2016"; //at work
 		} else {
-			INPUT_DIRECTORY = "../../../kaggle/DTA/data/drivers";   //at home
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/RoundQuali2016";   //at home
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);

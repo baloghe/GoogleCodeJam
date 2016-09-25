@@ -99,4 +99,74 @@ public class TstUtil {
 		}
 	}
 	
+
+	@Test
+	public void t_objMattostr(){
+		Integer[][] mat = new Integer[][]{
+					new Integer[]{
+							new Integer(1)
+							,new Integer(2)
+							,new Integer(3)
+					}
+					,new Integer[]{
+							new Integer(4)
+							,new Integer(5)
+							,new Integer(6)
+					}
+				};
+		System.out.println("t_objMattostr:");
+		System.out.println(Util.objMatrixToString(mat, " "));
+	}
+	
+	@Test
+	public void t_itertostr1(){
+		ArrayList<Integer> ilist = null;
+		System.out.println("t_itertostr1:");
+		System.out.println(Util.iterableToString(ilist, " "));
+	}
+	
+	@Test
+	public void t_itertostr2(){
+		ArrayList<Integer> ilist = new ArrayList<Integer>();
+		System.out.println("t_itertostr2:");
+		System.out.println(Util.iterableToString(ilist, " "));
+	}
+	
+	@Test
+	public void t_itertostr3(){
+		ArrayList<Integer> ilist = new ArrayList<Integer>();
+		ilist.add(null);
+		System.out.println("t_itertostr3:");
+		System.out.println(Util.iterableToString(ilist, " "));
+	}
+	
+	@Test
+	public void t_itertostr4(){
+		ArrayList<Integer> ilist = new ArrayList<Integer>();
+		ilist.add(new Integer(4));
+		ilist.add(null);
+		ilist.add(new Integer(2));
+		System.out.println("t_itertostr4:");
+		System.out.println(Util.iterableToString(ilist, " "));
+	}
+	
+	@Test
+	public void t_itertostr5(){
+		ArrayList<Integer> ilist = new ArrayList<Integer>();
+		ilist.add(null);
+		ilist.add(new Integer(5));
+		ilist.add(new Integer(2));
+		System.out.println("t_itertostr5:");
+		System.out.println(Util.iterableToString(ilist, " "));
+	}
+	
+	@Test
+	public void t_itertostr6(){
+		ArrayList<Integer> ilist = new ArrayList<Integer>();
+		ilist.add(new Integer(4));
+		ilist.add(new Integer(5));
+		ilist.add(new Integer(2));
+		System.out.println("t_itertostr6:");
+		System.out.println(Util.iterableToString(ilist, " "));
+	}
 }
