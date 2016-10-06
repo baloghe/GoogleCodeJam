@@ -20,18 +20,29 @@ public class ProblemSolution {
 	 * input directory relative to the project repo directory, dependent on actual username
 	 */
 	public static String INPUT_DIRECTORY;
+
+	/**
+	 * Input file name for TEST problem
+	 * WARNING!!! RENAMING REQUIRED!!!
+	 */
+	public static String INPUT_FILENAME_TEST = "C-test-practice.in";
 	
 	/**
 	 * Input file name for Small problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_SMALL = "B-small-practice.in";
+	public static String INPUT_FILENAME_SMALL = "C-small-practice.in";
 	
 	/**
 	 * Input file name for Large problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_LARGE = "B-large-practice.in";
+	public static String INPUT_FILENAME_LARGE = "C-large-practice.in";
+		
+	/**
+	 * Test input mode - to see if ProblemReader works fine when You need it
+	 */
+	public static int RUNMODE_TEST = -1;
 	
 	/**
 	 * Small input mode
@@ -60,7 +71,8 @@ public class ProblemSolution {
 		rawLinesNum = 1;
 		
 		//Small or Large to be processed?
-		int runmode = RUNMODE_SMALL;
+		int runmode = RUNMODE_TEST;
+		//int runmode = RUNMODE_SMALL;
 		//int runmode = RUNMODE_LARGE;
 				
 		//init the whole thing
@@ -100,21 +112,23 @@ public class ProblemSolution {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1B2016"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQ2015"; //at work
 		} else if(username.equalsIgnoreCase("user")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1B2016"; //at home/desktop
+			INPUT_DIRECTORY = "../../GoogleCodeJam/RoundQ2015"; //at home/desktop
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1B2016";   //at home/laptop
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/RoundQ2015";   //at home/laptop
 		}
 		
-		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE);
+		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : ( inRunMode==RUNMODE_TEST ? INPUT_FILENAME_TEST : INPUT_FILENAME_LARGE ) );
 		String outfname = INPUT_DIRECTORY + "/" + infname.replace(".in", ".out");
 		SUBMISSION_FILE = Util.createFile(outfname, null);
 		
 		Util.readTestNumber(INPUT_DIRECTORY + "/" + infname );
 		
-		//read raw data
-		rawInputs = Util.readInputFile(INPUT_DIRECTORY + "/" + (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : INPUT_FILENAME_LARGE) , rawLinesNum);
+		//read raw data -- ONE LINE OF INPUT PER CASE
+		//rawInputs = Util.readInputFile(INPUT_DIRECTORY + "/" + (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : (inRunMode==RUNMODE_TEST ? INPUT_FILENAME_TEST : INPUT_FILENAME_LARGE) ) , rawLinesNum);
+		//Alternatively: MULTIPLE LINE OF INPUT PER CASE
+		rawInputs = ProblemReader.readInputFile( INPUT_DIRECTORY + "/" + (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : (inRunMode==RUNMODE_TEST ? INPUT_FILENAME_TEST : INPUT_FILENAME_LARGE) ) );
 		
 		//print last input
 		System.out.println("Last raw input: " + rawInputs.get(rawInputs.size()-1));
