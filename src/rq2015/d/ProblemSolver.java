@@ -31,15 +31,30 @@ public class ProblemSolver implements util.CaseSolver {
 	public String solveCase(RawInput inCase) {
 		init(inCase);
 		
+		return this.solveIt() ? "GABRIEL" : "RICHARD" ;
+	}
+	
+	private boolean solveIt(){
 		/* trivial checks: 
 		 *    if X is not a divisor of (R*C) then Gabriel has no chances
 		 *    if X can be split up to MxN so that min{M,N} > min{R,C} then Gabriel has no chance at all
-		 *    for X>=7 Richard can always choose an X-omino which contains a hole. Bad luck again for Gabriel
+		 *    for X>=7 Richard can always choose an X-omino containing a hole. Bad luck again for Gabriel
 		 */
-		if( ( (origR * origC) % origX ) != 0 ) return "RICHARD=suxx";
-		if( origX >= 7 ) return "RICHARD=suxx";
+		if( ( (origR * origC) % origX ) != 0 ) return false;
+		if( origX >= 7 ) return false;
 		
-		return null;
+		int minRC = origR < origC ? origR : origC;
+		int maxRC = origR < origC ? origC : origR;
+		
+		/* advanced checks
+		 *  
+		 * */
+		if(origX==3 && minRC <= 1) return false;
+		if(origX==4 && minRC <= 2) return false;
+		if(origX==5 && (minRC <= 2  || (minRC==3 && maxRC==5) ) ) return false;
+		if(origX==6 && minRC <= 3) return false;
+		
+		return true;
 	}
 	
 	/**
@@ -52,7 +67,7 @@ public class ProblemSolver implements util.CaseSolver {
 		origX = xx.get(0);
 		origR = xx.get(1);
 		origC = xx.get(2);
-		System.out.println("raw: X=" + origX + ", R=" + origR + ", C=" + origC);
+		//System.out.println("raw: X=" + origX + ", R=" + origR + ", C=" + origC);
 	}
 
 }

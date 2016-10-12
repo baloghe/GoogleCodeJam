@@ -17,7 +17,7 @@ public class TestSolver {
 	public void t_Solver(){
 		
 		String[] strs = new String[]{
-				 "2 2 2"
+				 "6 4 6"
 			};
 		RawInput raw = new RawInput(strs);
 		ProblemSolver solver = new ProblemSolver(ProblemSolution.RUNMODE_SMALL);
@@ -25,7 +25,5 @@ public class TestSolver {
 		System.out.println("t_Solver for rq2015.d:");
 		System.out.println(strs[0] + " -> " + solver.solveCase(raw));
 	}
-	
-	
 	
 }

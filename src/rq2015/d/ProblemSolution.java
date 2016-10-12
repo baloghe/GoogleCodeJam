@@ -71,9 +71,9 @@ public class ProblemSolution {
 		rawLinesNum = 1;
 		
 		//Small or Large to be processed?
-		int runmode = RUNMODE_TEST;
+		//int runmode = RUNMODE_TEST;
 		//int runmode = RUNMODE_SMALL;
-		//int runmode = RUNMODE_LARGE;
+		int runmode = RUNMODE_LARGE;
 				
 		//init the whole thing
 		init(runmode);
