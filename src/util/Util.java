@@ -436,4 +436,56 @@ public class Util {
 		}
 		return ret;
 	}
+	
+	/**
+	 * Greatest Common Divisor of 2 long values, solution of Jeffrey Hantin
+	 *   taken from http://stackoverflow.com/questions/4201860/how-to-find-gcd-lcm-on-a-set-of-numbers at 2016.10.17 
+	 * @param a first number
+	 * @param b second number
+	 * @return greatest common divisor of a and b
+	 */
+	public static long gcd(long a, long b){
+	    while (b > 0)
+	    {
+	        long temp = b;
+	        b = a % b; // % is remainder
+	        a = temp;
+	    }
+	    return a;
+	}
+
+	/**
+	 * Greatest Common Divisor of many long values, solution of Jeffrey Hantin
+	 *   taken from http://stackoverflow.com/questions/4201860/how-to-find-gcd-lcm-on-a-set-of-numbers at 2016.10.17 
+	 * @param input array of numbers 
+	 * @return greatest common divisor of the given numbers
+	 */
+	public static long gcd(long[] input){
+	    long result = input[0];
+	    for(int i = 1; i < input.length; i++) result = gcd(result, input[i]);
+	    return result;
+	}
+	
+	/**
+	 * Greatest Common Multiple of 2 long values, solution of Jeffrey Hantin
+	 *   taken from http://stackoverflow.com/questions/4201860/how-to-find-gcd-lcm-on-a-set-of-numbers at 2016.10.17 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static long lcm(long a, long b){
+	    return a * (b / gcd(a, b));
+	}
+
+	/**
+	 * Greatest Common Multiple of many long values, solution of Jeffrey Hantin
+	 *   taken from http://stackoverflow.com/questions/4201860/how-to-find-gcd-lcm-on-a-set-of-numbers at 2016.10.17 
+	 * @param input
+	 * @return
+	 */
+	public static long lcm(long[] input){
+	    long result = input[0];
+	    for(int i = 1; i < input.length; i++) result = lcm(result, input[i]);
+	    return result;
+	}
 }

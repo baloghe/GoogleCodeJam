@@ -1,4 +1,4 @@
-package template;
+package r1a2015.a;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
