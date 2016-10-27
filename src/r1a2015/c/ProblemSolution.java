@@ -1,4 +1,4 @@
-package r1a2015.b;
+package r1a2015.c;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,19 +25,19 @@ public class ProblemSolution {
 	 * Input file name for TEST problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_TEST = "B-test-practice.in";
+	public static String INPUT_FILENAME_TEST = "C-test-practice.in";
 	
 	/**
 	 * Input file name for Small problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_SMALL = "B-small-practice.in";
+	public static String INPUT_FILENAME_SMALL = "C-small-practice.in";
 	
 	/**
 	 * Input file name for Large problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_LARGE = "B-large-practice.in";
+	public static String INPUT_FILENAME_LARGE = "C-large-practice.in";
 		
 	/**
 	 * Test input mode - to see if ProblemReader works fine when You need it
@@ -72,9 +72,9 @@ public class ProblemSolution {
 		
 		//Small or Large to be processed?
 		//int runmode = RUNMODE_TEST;
-		//int runmode = RUNMODE_SMALL;
-		int runmode = RUNMODE_LARGE;
-		
+		int runmode = RUNMODE_SMALL;
+		//int runmode = RUNMODE_LARGE;
+				
 		//init the whole thing
 		init(runmode);
 		
@@ -97,7 +97,7 @@ public class ProblemSolution {
 		//output
 		long endTime = System.currentTimeMillis();
 		long duration = (endTime - startTime) / 60000;
-		System.out.println("Main :: duration = " + duration + " min");
+		System.out.println("Main :: duration = " + duration + " min"); 
 	}
 	
 	/**

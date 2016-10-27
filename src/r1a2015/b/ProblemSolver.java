@@ -29,13 +29,16 @@ public class ProblemSolver implements util.CaseSolver {
 	
 	@Override
 	public String solveCase(RawInput inCase){
-		return solveCaseLarge( inCase );
-		
-		/*
+		return solveCaseBinarySearch( inCase );
+		//return solveCaseLarge( inCase );
+		//return solveCaseBF( inCase );
+	}
+	
+	public String solveCaseBF(RawInput inCase){
 		init(inCase);
 		
 		if(placeInLine <= numBarber){
-			//System.out.println("Shortcut: placeInLine=" + placeInLine + " <= numBarber=" + numBarber);
+			System.out.println("Shortcut: placeInLine=" + placeInLine + " <= numBarber=" + numBarber);
 			return Integer.toString(placeInLine);
 		}
 		
@@ -49,7 +52,7 @@ public class ProblemSolver implements util.CaseSolver {
 			goesToBarber = i;
 			placeInLine--;
 		}
-		System.out.println("numBarber=" + numBarber + ", after fillup: placeInLine=" + placeInLine);
+		//System.out.println("numBarber=" + numBarber + ", after fillup: placeInLine=" + placeInLine);
 		
 		//in each round
 		//  1. wait minimum time
@@ -82,8 +85,71 @@ public class ProblemSolver implements util.CaseSolver {
 		
 		
 		return Integer.toString(goesToBarber + 1);
-		*/
+	}
+	
+	public String solveCaseBinarySearch(RawInput inCase) {
+		init(inCase);
 		
+		int ret = -1;
+		
+		//get max(cutTimes)
+		int maxCutTime = Integer.MIN_VALUE;
+		for(Integer i : cutTimes){
+			if(i > maxCutTime){
+				maxCutTime = i;
+			}
+		}
+		
+		//binary search for the time we are served
+		long thlow = -1;
+		long thup = ( (long)placeInLine ) * ( (long)maxCutTime );
+		//System.out.println("BEFORE:: thlow=" + thlow + ", thup=" + thup + ", placeInLine=" + placeInLine);
+		long actTime = (thup - thlow) / 2;
+		long serveTime = -1;
+		while( thlow +1 < thup ){  //cycle runs until the thresholds are unequal
+			long served=getServedUpToT(actTime);
+			
+			if(served >= placeInLine ){
+				thup = actTime;
+				//System.out.println("       served > placeInLine");
+			} else {
+				thlow = actTime;
+				//System.out.println("       else");
+			}
+			
+			//step ahead
+			actTime = thlow + (thup - thlow) / 2;
+			//System.out.println("    thlow=" + thlow + ", actTime=" + actTime + ", thup=" + thup + ", served=" + served + ", placeInLine=" + placeInLine);
+		}
+		serveTime = thup;
+		
+		//number of customers served before:
+		long servedBefore = getServedUpToT(serveTime - 1);
+		long custsToBeServedBeforeMe = placeInLine - servedBefore;
+		
+		//System.out.println("binSearch :: maxCutTime=" + maxCutTime + ", serveTime=" + serveTime + ", servedBefore=" + servedBefore + ", custsToBeServedBeforeMe=" + custsToBeServedBeforeMe);
+		
+		for(int i=0; i<numBarber; i++){
+			if( serveTime % ( (long)cutTimes.get(i) ) == 0 ){
+				custsToBeServedBeforeMe--;
+			}
+			if( custsToBeServedBeforeMe==0 ){
+				ret = i+1;
+				break;
+			}
+		}
+		
+		return Integer.toString(ret);
+	}
+	
+	private long getServedUpToT(long inTime){
+		if(inTime < 0) return 0;
+		long ret;
+		ret = 0;
+		for(int i=0; i<numBarber; i++){
+			ret += (inTime / ( (long)cutTimes.get(i) ) + 1);
+		}
+		return ret;
 	}
 	
 	public String solveCaseLarge(RawInput inCase) {
@@ -128,14 +194,14 @@ public class ProblemSolver implements util.CaseSolver {
 			numClient_in_SCM += (SCM / cutTimes.get(i));
 			//System.out.println("  i=" + i + " -> " + ( SCM / cutTimes.get(i) ));
 		}
-		System.out.println("numClient_in_SCM=" + numClient_in_SCM);
+		//System.out.println("numClient_in_SCM=" + numClient_in_SCM);
 		
-		//take modulo and EITHER shortcut2 OR decrease queue to modulo
+		//take modulo and EITHER shortcut2 OR decrease queue to (modulo + numClient_in_SCM)
 		int new_placeInLine = placeInLine / numClient_in_SCM;
 		new_placeInLine = placeInLine - (new_placeInLine * numClient_in_SCM);
 		//System.out.println("modulo=" + new_placeInLine);
 		if(new_placeInLine == 0){
-			return Integer.toString(numBarber);
+			placeInLine = numClient_in_SCM;
 		} else {
 			placeInLine = new_placeInLine;
 		}
