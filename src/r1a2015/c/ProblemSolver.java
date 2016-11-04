@@ -66,7 +66,7 @@ public class ProblemSolver implements util.CaseSolver {
 					for(Point2D Q : points){
 						if(   !(Q.equals(P))
 						   && !(Q.equals(X))){
-							int whichside = ProblemSolver.isLeftFromSegment(X, P, Q);
+							int whichside = ProblemSolver.getPositionToSegment(X, P, Q);
 							if(whichside > 0){
 								toRight++;
 							} else if(whichside < 0){
@@ -92,7 +92,7 @@ public class ProblemSolver implements util.CaseSolver {
 		return Util.iterableToString(numToFall, " ");
 	}
 	
-	public static int isLeftFromSegment(Point2D inTargetPt, Point2D inStartPt, Point2D inEndPt){
+	public static int getPositionToSegment(Point2D inTargetPt, Point2D inStartPt, Point2D inEndPt){
 		//Taken from https://en.wikipedia.org/wiki/Graham_scan
 		// 1 if Start -> Target - > End constitutes a Left Turn
 		// 0 if the points are collinear
@@ -126,6 +126,10 @@ public class ProblemSolver implements util.CaseSolver {
 		
 		//System.out.println("init :: ptsNum=" + ptsNum + ", points.size=" + points.size());
 		//System.out.println("  points=" + Util.objArrayToString(lines, ";"));
+	}
+	
+	public ArrayList<Point2D> getConvexHull(ArrayList<Point2D> inAllPoints){
+		return null;
 	}
 
 }
