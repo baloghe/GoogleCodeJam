@@ -99,7 +99,7 @@ public class TestSolver {
 		System.out.println(solver.solveBF(raw));
 	}
 	
-	@Test
+	@Ignore
 	public void t_HouseGrid(){
 		HouseGrid grid = new HouseGrid(3,3);
 		
@@ -113,5 +113,31 @@ public class TestSolver {
 		System.out.println("Neighbours number:");
 		System.out.println(grid.numNeighboursToString());
 		System.out.println("Loudness = " + grid.getGridLoudness());
+	}
+	
+	@Ignore
+	public void t_BF_to_Greedy(){
+		String[][] strs = new String[][]{
+				 {"3 6 15"}
+			};
+		RawInput raw = new RawInput(strs[0]);
+		ProblemSolver solver = new ProblemSolver(ProblemSolution.RUNMODE_SMALL);
+		
+		System.out.println("t_BF_to_Greedy for r1b2015.b:");
+		System.out.println("BF:" + solver.solveBF(raw));
+		System.out.println("Greedy:" + solver.solveGreedy(raw));
+	}
+	
+	@Test
+	public void t_Large_to_Greedy(){
+		String[][] strs = new String[][]{
+				 {"15 15 219"}
+			};
+		RawInput raw = new RawInput(strs[0]);
+		ProblemSolver solver = new ProblemSolver(ProblemSolution.RUNMODE_SMALL);
+		
+		System.out.println("t_Large_to_Greedy for r1b2015.b:");
+		System.out.println("Large:" + solver.solveLarge(raw));
+		System.out.println("Greedy:" + solver.solveGreedy(raw));
 	}
 }

@@ -30,7 +30,14 @@ public class ProblemSolver implements util.CaseSolver {
 	
 	@Override
 	public String solveCase(RawInput inCase) {
-		return solveBF(inCase);
+		/*
+		init(inCase);
+		if(   (R==3 && C==5)
+		   || (R==5 && C==3) 
+		  ) return solveBF(inCase);
+		else return solveGreedy(inCase);
+		*/
+		return solveLarge(inCase);
 	}
 	
 	public String solveBF(RawInput inCase){
@@ -101,6 +108,7 @@ public class ProblemSolver implements util.CaseSolver {
 			}
 		}//next combination
 		
+		//System.out.println("   BF :: winningComb=" + winningComb);
 		return Integer.toString(ret);
 	}
 	
@@ -120,6 +128,11 @@ public class ProblemSolver implements util.CaseSolver {
 		for(int i=0; i<N; i++){
 			grid.addResidentToMin();
 		}
+		/*
+		System.out.println("   Greedy :: ");
+		System.out.println("   Occupation :: ");
+		System.out.println(grid.occupiedToString());
+		*/
 		return Integer.toString(grid.getGridLoudness());
 	}
 	
@@ -128,8 +141,8 @@ public class ProblemSolver implements util.CaseSolver {
 		/* Large solution
 		 * 1) N <= ceil(R*C/2) yields Loudness==0
 		 * 2) if(min(R,C))==1 then 
-		 *       N is odd => any new owner above ceil(R*C/2) would increase Loudness by 2
-		 *       N is even =>
+		 *       max(R,C) is odd => any new owner above ceil(R*C/2) would increase Loudness by 2
+		 *       max(R,C) is even =>
 		 *          one new owner above ceil(R*C/2) would increase Loudness by 1
 		 *          any other owner would increase Loudness by 2
 		 * 3) if(min(R,C))==2 then 
@@ -154,19 +167,123 @@ public class ProblemSolver implements util.CaseSolver {
 		 *          	but both of them are on the same ODD side
 		 *          any new owner could be added with an increase in Loudness by 3 (into empty slots in the grid border)
 		 *       		number of such empty slots = 2 * ( EVEN/2 - 1 )
-		 *                                         + floor(ODD/2) - 2
+		 *                                         + ceil(ODD/2) - 2
 		 *                                         + floor(ODD/2)
-		 *                                         = 2 * ( EVEN/2 - 1 + floor(ODD/2) - 1 )
-		 *                                         = 2 * ( EVEN/2 + floor(ODD/2) - 2 )
+		 *                                         = EVEN + 2 * (ODD/2) - 3
 		 *          any further owner could be added with an increase in Loudness by 4 (into empty slots in the middle of the grid)
 		 */
-		int ret = -1;
+		int ret = 0;
 		
 		//shortcuts
-		if(N<=1) ret = 0;
+		if(N<=1) return "0";
 		
 		int minRC = (R > C ? C : R);
 		int maxRC = (R > C ? R : C);
+		
+		if(minRC==3 && maxRC==5){
+			return solveBF(inCase);
+		}
+		
+		int rc = R * C;
+		int floorRC2 = rc/2;
+		int ceilRC2 = (rc % 2 == 0 ? rc/2 : rc/2+1);
+		
+		//1)
+		if(N <= ceilRC2){
+			return "0";
+		}
+		
+		//for the rest: suppose floorRC is already placed in chesstable fashion...
+		int remainder = N - ceilRC2;
+		
+		//2)
+		if(minRC==1){
+			if(maxRC % 2 == 0){
+				remainder--;
+				ret++;
+			} 
+			ret += (remainder * 2);
+			return Integer.toString(ret);
+		}
+		
+		//3)
+		if(minRC==2){
+			//first empty corner
+			remainder--;
+			ret+=2;
+			//second empty corner, if any
+			if(remainder > 0){
+				remainder--;
+				ret+=2;
+			} else {
+				return Integer.toString(ret);
+			}
+			//empty sells on borders
+			ret += (remainder * 3);
+			return Integer.toString(ret);
+		}
+		
+		//4)
+		if(minRC % 2 == 1 && maxRC % 2 == 1){ // a) both min(R,C) and max(R,C) are odd
+			//System.out.println("Large 4a): remainder=" + remainder + ", (2 * (minRC / 2 + maxRC / 2))=" + (2 * (minRC / 2 + maxRC / 2)) );
+			if(remainder > (2 * (minRC / 2) + ( + maxRC / 2)) ){
+				remainder -= (2 * (minRC / 2 + maxRC / 2));
+				ret += ( (2 * (minRC / 2 + maxRC / 2)) * 3 );
+			} else {
+				ret += remainder * 3;
+				return Integer.toString(ret);
+			}
+		} else if(minRC % 2 == 0 && maxRC % 2 == 0){ // b) both min(R,C) and max(R,C) are even
+			//first empty corner
+			remainder--;
+			ret+=2;
+			//second empty corner, if any
+			if(remainder > 0){
+				remainder--;
+				ret+=2;
+			} else {
+				return Integer.toString(ret);
+			}
+			//empty slots on border
+			if(remainder > (2 * ( minRC/2 - 1) + 2 * ( maxRC/2 - 1)) ){
+				remainder -= (2 * ( minRC/2 - 1) + 2 * ( maxRC/2 - 1));
+				ret += ( (2 * ( minRC/2 - 1) + 2 * ( maxRC/2 - 1)) * 3 );
+			} else {
+				ret += remainder * 3;
+				return Integer.toString(ret);
+			}
+		} else {  //one is even, the other is odd
+			int EVEN = (minRC % 2 == 0 ? minRC : maxRC);
+			int ODD = (minRC % 2 == 1 ? minRC : maxRC);
+			
+			//System.out.println("Large :: EVEN=" + EVEN + ", ODD=" + ODD + ", remainder=" + remainder);
+			
+			//first empty corner
+			remainder--;
+			ret+=2;
+			//second empty corner, if any
+			if(remainder > 0){
+				remainder--;
+				ret+=2;
+			} else {
+				return Integer.toString(ret);
+			}
+			//System.out.println("   after second corner: remainder=" + remainder + ", (EVEN + 2 * (ODD/2) - 3)=" + (EVEN + 2 * (ODD/2) - 3) );
+			//border slots
+			// former: (2 * ( EVEN/2 + ODD/2 - 2 ))
+			// EVEN + 2 * (ODD/2) - 3
+			if(remainder > (EVEN + 2 * (ODD/2) - 3) ){
+				remainder -= (EVEN + 2 * (ODD/2) - 3);
+				ret += ( (EVEN + 2 * (ODD/2) - 3) * 3 );
+				//System.out.println("   after border slots: remainder=" + remainder);
+			} else {
+				ret += remainder * 3;
+				return Integer.toString(ret);
+			}
+			
+		}
+		//empty slots in the middle
+		ret += (remainder * 4);
 		
 		return Integer.toString(ret);
 	}

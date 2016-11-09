@@ -37,7 +37,7 @@ public class ProblemSolution {
 	 * Input file name for Large problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_LARGE = "BS-large-practice.in";
+	public static String INPUT_FILENAME_LARGE = "B-large-practice.in";
 		
 	/**
 	 * Test input mode - to see if ProblemReader works fine when You need it
@@ -72,8 +72,8 @@ public class ProblemSolution {
 		
 		//Small or Large to be processed?
 		//int runmode = RUNMODE_TEST;
-		int runmode = RUNMODE_SMALL;
-		//int runmode = RUNMODE_LARGE;
+		//int runmode = RUNMODE_SMALL;
+		int runmode = RUNMODE_LARGE;
 				
 		//init the whole thing
 		init(runmode);
