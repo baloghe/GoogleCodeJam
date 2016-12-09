@@ -131,7 +131,7 @@ public class TestSolver {
 	@Test
 	public void t_Large_to_Greedy(){
 		String[][] strs = new String[][]{
-				 {"15 15 219"}
+				 {"3 5 11"}
 			};
 		RawInput raw = new RawInput(strs[0]);
 		ProblemSolver solver = new ProblemSolver(ProblemSolution.RUNMODE_SMALL);

@@ -108,7 +108,7 @@ public class ProblemSolver implements util.CaseSolver {
 			}
 		}//next combination
 		
-		//System.out.println("   BF :: winningComb=" + winningComb);
+		System.out.println("   BF :: winningComb=" + winningComb);
 		return Integer.toString(ret);
 	}
 	
@@ -180,7 +180,7 @@ public class ProblemSolver implements util.CaseSolver {
 		int minRC = (R > C ? C : R);
 		int maxRC = (R > C ? R : C);
 		
-		if(minRC==3 && maxRC==5){
+		if( minRC==3 && (maxRC==5 || maxRC==7) ){
 			return solveBF(inCase);
 		}
 		
@@ -226,11 +226,11 @@ public class ProblemSolver implements util.CaseSolver {
 		//4)
 		if(minRC % 2 == 1 && maxRC % 2 == 1){ // a) both min(R,C) and max(R,C) are odd
 			//System.out.println("Large 4a): remainder=" + remainder + ", (2 * (minRC / 2 + maxRC / 2))=" + (2 * (minRC / 2 + maxRC / 2)) );
-			if(remainder > (2 * (minRC / 2) + ( + maxRC / 2)) ){
+			if(remainder > (2 * (minRC / 2 + maxRC / 2)) ){
 				remainder -= (2 * (minRC / 2 + maxRC / 2));
 				ret += ( (2 * (minRC / 2 + maxRC / 2)) * 3 );
 			} else {
-				ret += remainder * 3;
+				ret += (remainder * 3);
 				return Integer.toString(ret);
 			}
 		} else if(minRC % 2 == 0 && maxRC % 2 == 0){ // b) both min(R,C) and max(R,C) are even

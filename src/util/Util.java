@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -487,5 +488,76 @@ public class Util {
 	    long result = input[0];
 	    for(int i = 1; i < input.length; i++) result = lcm(result, input[i]);
 	    return result;
+	}
+	
+	/**
+	 * generates random integer numbers within a predefined range
+	 * @param inNum number of integers to be generated
+	 * @param inLowerThrs lower threshold of the range
+	 * @param inUpperThrs upper threshold of the range
+	 * @return array of generated random numbers
+	 */
+	public static int[] randInt(int inNum, int inLowerThrs, int inUpperThrs){
+		int[] ret = new int[inNum];
+		
+		if(inUpperThrs == inLowerThrs){       //return the same number
+			for(int i=0; i<inNum; i++){
+				ret[i] = inLowerThrs; 
+			}
+			return ret;
+		} else if(inUpperThrs < inLowerThrs){ //swap lower and upper around
+			int x = inLowerThrs;
+			inLowerThrs = inUpperThrs;
+			inUpperThrs = x;
+		} 
+		
+		Random r = new Random();
+		for(int i=0; i<inNum; i++){
+			ret[i] = inLowerThrs + r.nextInt(inUpperThrs - inLowerThrs);
+		}
+		
+		return ret;
+	}
+	
+	public static int[] randPrimes(int inNum, int inUpperThrs){
+		int[] ret = new int[inNum];
+		//trivial cases
+		if(inUpperThrs < 2){
+			return null;
+		} else if(inUpperThrs == 2){
+			for(int i=0; i<inNum; i++){
+				ret[i] = 2;
+			}
+			return ret;
+		}
+		
+		//inUpperThrs > 2
+		int foundAlready = 0; //number of primes found already
+		int numTrials = 10;
+		int[] test_a;
+		while(foundAlready < inNum){
+			//get some random numbers
+			int[] cands = randInt( (inNum > 10 ? inNum : 10) , 2 , inUpperThrs );
+			//select out primes
+			for(int i=0; i<cands.length && (foundAlready < inNum); i++){
+				//choose bases for small Fermat theorem
+				test_a = randInt( (numTrials > inUpperThrs-1 ? inUpperThrs-1 : numTrials) , 2, inUpperThrs );
+				boolean isPrime=true;
+				for(int j=0; j<test_a.length; j++){
+					int a = test_a[j];
+					int remainder = 1;
+					for(int k=1; k<=cands[i]-1; k++){
+						remainder = (a * remainder) % cands[i];
+					}//next k (power)
+					isPrime = isPrime && (remainder==1);
+				}//next j (power base)
+				if(isPrime && (foundAlready < inNum) ){
+					//prime found => add it to the results
+					ret[foundAlready++] = cands[i];
+				}
+			}//next i (candidate)
+		}//wend
+		
+		return ret;
 	}
 }

@@ -169,4 +169,22 @@ public class TstUtil {
 		System.out.println("t_itertostr6:");
 		System.out.println(Util.iterableToString(ilist, " "));
 	}
+	
+	@Test
+	public void t_randInt(){
+		System.out.println("t_randInt:");
+		System.out.println("   20 num btw 100 and 200: " + Util.intArrayToString(Util.randInt(20, 100, 200), ", "));
+		System.out.println("   20 num btw 200 and 100: " + Util.intArrayToString(Util.randInt(20, 200, 100), ", "));
+		System.out.println("   20 num btw -100 and 100: " + Util.intArrayToString(Util.randInt(20, -100, 100), ", "));
+		System.out.println("    5 num btw 10 and 10: " + Util.intArrayToString(Util.randInt(5, 10, 10), ", "));
+	}
+	
+	@Test
+	public void t_randPrimes(){
+		System.out.println("t_randPrimes:");
+		System.out.println("   30 prime up to 100: " + Util.intArrayToString(Util.randPrimes(20, 100), ", "));
+		System.out.println("   20 prime up to 1000: " + Util.intArrayToString(Util.randPrimes(20, 1000), ", "));
+		System.out.println("    5 prime up to 1: " + Util.intArrayToString(Util.randPrimes(5, 1), ", "));
+		System.out.println("    5 prime up to 2: " + Util.intArrayToString(Util.randPrimes(5, 2), ", "));
+	}
 }
