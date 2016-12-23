@@ -120,6 +120,33 @@ public class Util {
 	}
 	
 	/**
+	 * splits the given string into a Long array. The splitting is executed by a java.util.Scanner object
+	 * @param inStr string to be split up
+	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
+	 * @return null if the input was null, array of Integers otherwise
+	 */
+	public static ArrayList<Long> splitStringToLong(String inStr, String inDelim){
+		
+		if(inStr==null || inStr.equalsIgnoreCase(""))
+			return null;
+		
+		ArrayList<Long> ret = new ArrayList<Long>();
+		
+		Scanner sc = new Scanner(inStr);
+		
+		if(inDelim != null){
+			sc.useDelimiter(inDelim);
+		}
+		
+		while (sc.hasNextInt()){
+			ret.add( sc.nextLong() );
+		}
+		sc.close();
+		
+		return ret;
+	}
+	
+	/**
 	 * creates an empty file (or a file with the given header) in the target directory (and closes it immediately). File with the same name will be overwritten
 	 * @param targetFileName name of the file to be created
 	 * @param header header to be written out into the file. In case of NULL no header will be written to the file
