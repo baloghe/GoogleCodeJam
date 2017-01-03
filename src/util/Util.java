@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class Util {
 	 * splits the given string into a Long array. The splitting is executed by a java.util.Scanner object
 	 * @param inStr string to be split up
 	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
-	 * @return null if the input was null, array of Integers otherwise
+	 * @return null if the input was null, array of Longs otherwise
 	 */
 	public static ArrayList<Long> splitStringToLong(String inStr, String inDelim){
 		
@@ -138,8 +139,35 @@ public class Util {
 			sc.useDelimiter(inDelim);
 		}
 		
-		while (sc.hasNextInt()){
+		while (sc.hasNext()){
 			ret.add( sc.nextLong() );
+		}
+		sc.close();
+		
+		return ret;
+	}
+	
+	/**
+	 * splits the given string into a Double array. The splitting is executed by a java.util.Scanner object
+	 * @param inStr string to be split up
+	 * @param inDelim delimiter to be passed to the Scanner object (without modification)
+	 * @return null if the input was null, array of Doubles otherwise
+	 */
+	public static ArrayList<Double> splitStringToDouble(String inStr, String inDelim) {
+		if(inStr==null || inStr.equalsIgnoreCase(""))
+			return null;
+		
+		ArrayList<Double> ret = new ArrayList<Double>();
+		
+		Scanner sc = new Scanner(inStr);
+		sc.useLocale(Locale.US);
+		
+		if(inDelim != null){
+			sc.useDelimiter(inDelim);
+		}
+		
+		while (sc.hasNextDouble()){
+			ret.add( sc.nextDouble() );
 		}
 		sc.close();
 		
@@ -586,5 +614,5 @@ public class Util {
 		}//wend
 		
 		return ret;
-	}
+	}	
 }
