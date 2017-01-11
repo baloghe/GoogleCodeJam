@@ -614,5 +614,47 @@ public class Util {
 		}//wend
 		
 		return ret;
-	}	
+	}
+	
+	/**
+	 * transforms a non-negative long integer into a boolean array for binary representation
+	 * taken from http://stackoverflow.com/questions/8151435/integer-to-binary-array
+	 * @param inNum non-negative number to be transformed
+	 * @return binary representation (lower power to the right)
+	 */
+	public static Boolean[] longToBoolArray(long inNum){
+		
+		long ctrl = inNum;
+		int cnt = 0;
+		ArrayList<Boolean> blist = new ArrayList<Boolean>();
+		while(ctrl > 0){
+			blist.add(0, (inNum & (1 << cnt)) != 0);
+			ctrl /= ((long)2);
+			cnt++;
+		}
+		
+		return blist.toArray(new Boolean[0]);
+	}
+	
+	public static Boolean[] longToBoolArray(long inNum, int inLen){
+		long ctrl = inNum;
+		int cnt = 0;
+		ArrayList<Boolean> blist = new ArrayList<Boolean>();
+		while(ctrl > 0){
+			blist.add(0, (inNum & (1 << cnt)) != 0);
+			ctrl /= ((long)2);
+			cnt++;
+		}
+		
+		Boolean[] cand = blist.toArray(new Boolean[0]);
+		Boolean[] ret = new Boolean[inLen];
+		for(int i=cand.length-1; i>=0; i--){
+			ret[i+ret.length-cand.length] = cand[i];
+		}
+		for(int i=ret.length-cand.length-1; i>=0; i--){
+			ret[i] = false;
+		}
+		
+		return ret;
+	}
 }
