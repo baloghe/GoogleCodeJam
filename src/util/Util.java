@@ -636,6 +636,12 @@ public class Util {
 		return blist.toArray(new Boolean[0]);
 	}
 	
+	/**
+	 * binary representation of a long number in a boolean array of predefined length. When representation is shorter than inLen, the output will be left-padded with FALSE values
+	 * @param inNum number to be represented in binary form
+	 * @param inLen array length
+	 * @return binary representation
+	 */
 	public static Boolean[] longToBoolArray(long inNum, int inLen){
 		long ctrl = inNum;
 		int cnt = 0;
@@ -655,6 +661,17 @@ public class Util {
 			ret[i] = false;
 		}
 		
+		return ret;
+	}
+	
+	/**
+	 * power of 2
+	 * @param inNum non-negative power
+	 * @return 2^inNum
+	 */
+	public static int twoPow(int inNum){
+		int ret = 1;
+		for(int i=0; i<inNum; i++) ret *= 2;
 		return ret;
 	}
 }

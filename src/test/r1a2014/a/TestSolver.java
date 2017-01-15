@@ -149,21 +149,21 @@ public class TestSolver {
 	
 	@Test
 	public void twoPow1(){
-		int act = ProblemSolver.twoPow(0);
+		int act = Util.twoPow(0);
 		int exp = 1;
 		assertEquals(act, exp);
 	}
 	
 	@Test
 	public void twoPow2(){
-		int act = ProblemSolver.twoPow(1);
+		int act = Util.twoPow(1);
 		int exp = 2;
 		assertEquals(act, exp);
 	}
 	
 	@Test
 	public void twoPow3(){
-		int act = ProblemSolver.twoPow(3);
+		int act = Util.twoPow(3);
 		int exp = 8;
 		assertEquals(act, exp);
 	}

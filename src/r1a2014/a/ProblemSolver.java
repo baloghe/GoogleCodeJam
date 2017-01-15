@@ -151,7 +151,7 @@ public class ProblemSolver implements util.CaseSolver {
 		
 		//otherwise let's look all possible setups
 		int ret = L+1;
-		int lpow = twoPow(L);
+		int lpow = Util.twoPow(L);
 		for(int chnum=0; chnum < lpow; chnum++){
 			Boolean[] sw = Util.longToBoolArray((long)chnum, L);
 			int swNum = countTrue(sw);
@@ -174,12 +174,6 @@ public class ProblemSolver implements util.CaseSolver {
 		for(boolean b : inArr){
 			if(b) ret++;
 		}
-		return ret;
-	}
-	
-	public static int twoPow(int inNum){
-		int ret = 1;
-		for(int i=0; i<inNum; i++) ret *= 2;
 		return ret;
 	}
 	

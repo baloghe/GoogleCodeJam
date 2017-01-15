@@ -1,4 +1,4 @@
-package r1a2014.b;
+package riow2016.a;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,19 +25,19 @@ public class ProblemSolution {
 	 * Input file name for TEST problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_TEST = "B-test-practice.in";
+	public static String INPUT_FILENAME_TEST = "A-test-practice.in";
 	
 	/**
 	 * Input file name for Small problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_SMALL = "B-small-practice.in";
+	public static String INPUT_FILENAME_SMALL = "A-small-practice.in";
 	
 	/**
 	 * Input file name for Large problem
 	 * WARNING!!! RENAMING REQUIRED!!!
 	 */
-	public static String INPUT_FILENAME_LARGE = "B-large-practice.in";
+	public static String INPUT_FILENAME_LARGE = "A-large-practice.in";
 		
 	/**
 	 * Test input mode - to see if ProblemReader works fine when You need it
@@ -112,11 +112,11 @@ public class ProblemSolution {
 		String username=System.getProperty("user.name");
 		System.out.println("USER=" + username);
 		if(username.equalsIgnoreCase("baloghend")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1A2014"; //at work
+			INPUT_DIRECTORY = "../../GoogleCodeJam/IOW2016"; //at work
 		} else if(username.equalsIgnoreCase("user")){
-			INPUT_DIRECTORY = "../../GoogleCodeJam/Round1A2014"; //at home/desktop
+			INPUT_DIRECTORY = "../../GoogleCodeJam/IOW2016"; //at home/desktop
 		} else {
-			INPUT_DIRECTORY = "../../../GoogleCodeJam/Round1A2014";   //at home/laptop
+			INPUT_DIRECTORY = "../../../GoogleCodeJam/IOW2016";   //at home/laptop
 		}
 		
 		String infname = (inRunMode==RUNMODE_SMALL ? INPUT_FILENAME_SMALL : ( inRunMode==RUNMODE_TEST ? INPUT_FILENAME_TEST : INPUT_FILENAME_LARGE ) );
